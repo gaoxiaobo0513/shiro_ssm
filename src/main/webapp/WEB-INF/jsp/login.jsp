@@ -9,11 +9,17 @@
 <html>
 <head>
     <title>Login</title>
+    <style type="text/css">
+    	tr{
+    		background-color: lightgrey
+    	}
+    </style>
 </head>
 <body>
-<table>
-    <tr>
-        <td colspan="2">用户登录</td>
+<div align="center">
+<table style="border: 0;margin: 0;padding: 0;border-collapse: collapse;">
+    <tr align="center" style="background-color: blue;">
+        <th colspan="2">用户登录</th>
     </tr>
     <tr>
         <td>用户名：</td>
@@ -23,10 +29,10 @@
         <td>密  码：</td>
         <td><input type="password" name="password"  /></td>
     </tr>
-    <tr>
-        <td><input type="submit" value="登  录" /></td>
-        <td><button>注  册</button></td>
+    <tr align="center">
+        <td colspan="2"><input type="submit" value="登  录" />&nbsp;&nbsp;&nbsp;<button>注  册</button></td>
     </tr>
 </table>
+</div>
 </body>
 </html>

@@ -2,23 +2,28 @@ package com.gaoxiaobo.shiro.entity;
 
 import java.io.Serializable;
 
-/**
- * Created by Mr_Gao on 2017/5/16.
- */
+
 public class User implements Serializable {
-    private int id;
+    private Long id;
     private String username;
     private String password;
-    private String email;
-    private Integer age;
-    private String gender;
-    private String address;
+    private String salt;
 
-    public int getId() {
+    private Boolean locked = Boolean.FALSE;
+
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,36 +43,41 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getCredentialsSalt() {
+        return username + salt;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public Boolean getLocked() {
+        return locked;
     }
 
-    public String getGender() {
-        return gender;
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+
+        return true;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
@@ -76,10 +86,8 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", address='" + address + '\'' +
+                ", salt='" + salt + '\'' +
+                ", locked=" + locked +
                 '}';
     }
 }

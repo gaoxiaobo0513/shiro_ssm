@@ -11,22 +11,25 @@
     <title>Login</title>
 </head>
 <body>
-<table>
-    <tr>
-        <td colspan="2">用户登录</td>
-    </tr>
-    <tr>
-        <td>用户名：</td>
-        <td><input type="text" name="username" /></td>
-    </tr>
-    <tr>
-        <td>密  码：</td>
-        <td><input type="password" name="password"  /></td>
-    </tr>
-    <tr>
-        <td><input type="submit" value="登  录" /></td>
-        <td><button>注  册</button></td>
-    </tr>
-</table>
+<div> ${error}</div>
+<form action="${pageContext.request.contextPath}/login" method="post">
+	<table>
+	    <tr>
+	        <td colspan="2">用户登录</td>
+	    </tr>
+	    <tr>
+	        <td>用户名：</td>
+	        <td><input type="text" name="username" /></td>
+	    </tr>
+	    <tr>
+	        <td>密  码：</td>
+	        <td><input type="password" name="password"  /></td>
+	    </tr>
+	    <tr>
+	        <td><input type="submit" value="登  录" /></td>
+	        <td><button>注  册</button></td>
+	    </tr>
+	</table>
+</form>
 </body>
 </html>
