@@ -1,11 +1,9 @@
 package com.gaoxiaobo.test;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -55,7 +53,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void findByUsernameTest(){
-		User user = userService.findByUsername("  ");
+		User user = userService.findByUsername("aaa");
 		System.out.println(user);
 	}
 	

@@ -3,8 +3,6 @@ package com.gaoxiaobo.shiro.dao;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import com.gaoxiaobo.shiro.entity.User;
 
 public interface UserDaoI {

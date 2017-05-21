@@ -1,26 +1,30 @@
 package com.gaoxiaobo.shiro.service.impl;
 
 import java.util.Set;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.gaoxiaobo.shiro.dao.UserDaoI;
 import com.gaoxiaobo.shiro.entity.User;
 import com.gaoxiaobo.shiro.service.UserServiceI;
 import com.gaoxiaobo.shiro.utils.PasswordHelper;
 
-@Service
 public class UserServiceImpl implements UserServiceI {
 
-	@Autowired
 	private UserDaoI userDao;
 	
+	private PasswordHelper passwordHelper;
 	
+	
+	
+	public void setUserDao(UserDaoI userDao) {
+		this.userDao = userDao;
+	}
+
+	public void setPasswordHelper(PasswordHelper passwordHelper) {
+		this.passwordHelper = passwordHelper;
+	}
+
 	@Override
 	public User createUser(User user) {
-		new PasswordHelper().encryptPassword(user);
+		passwordHelper.encryptPassword(user);
 		Long id = userDao.createUser(user);
 		user.setId(id);
 		return user;
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserServiceI {
 	public void changePassword(Long userId, String newPassword) {
 		User user = userDao.findOne(userId);
 		user.setPassword(newPassword);
-		new PasswordHelper().encryptPassword(user);
+		passwordHelper.encryptPassword(user);
 		userDao.updateUser(user);
 	}
 
@@ -51,6 +55,7 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public User findByUsername(String username) {
+		System.out.println(userDao);
 		return (username==null||username.trim().length()==0)?null:userDao.findByUsername(username);
 	}
 
