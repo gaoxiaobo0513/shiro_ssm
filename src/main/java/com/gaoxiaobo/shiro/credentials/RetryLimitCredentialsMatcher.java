@@ -31,7 +31,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 		
 		//失败次数大于5则锁定账户
 		if(retryCount.incrementAndGet()>5){
-			throw new ExcessiveAttemptsException();
+			throw new ExcessiveAttemptsException("账户被锁定，请10分钟后再试！");
 		}
 		
 		//真正的校验由父类HashedCredentialsMatcher去做

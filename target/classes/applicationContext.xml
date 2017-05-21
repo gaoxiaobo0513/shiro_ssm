@@ -155,4 +155,37 @@
     <!-- 密码加密工具类 -->
     <bean id="passwordHelper" class="com.gaoxiaobo.shiro.utils.PasswordHelper"></bean>
     
+    <!-- Shiro生命周期处理器-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    
+    <!-- 基于Form表单的身份验证过滤器 这里我们用自己的controller控制验证跳转-->
+<!--     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="username"/>
+        <property name="passwordParam" value="password"/>
+        <property name="loginUrl" value="/showLogin"/>
+        <property name="successUrl" value="/success"></property>
+    </bean> -->
+    
+    
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/showLogin"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+<!--         <property name="filters">
+        	<map>
+        		<entry key="authc" value-ref="formAuthenticationFilter"></entry>
+        	</map>
+        </property> -->
+        <property name="filterChainDefinitions">
+            <value>
+                /showLogin = anon
+                /login = anon
+                /unauthorized = anon
+                /showLogin = authc
+                /logout = logout
+                /** = authc,perms["Read Articles"]
+            </value>
+        </property>
+    </bean>
 </beans>

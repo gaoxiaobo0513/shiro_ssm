@@ -31,7 +31,7 @@ public class UserServiceTest {
 	public void createUserTest(){
 		User user=new User();
 		user.setLocked(false);
-		user.setUsername("eee");
+		user.setUsername("qqq");
 		user.setPassword("123456");
 		userService.createUser(user);
 	}

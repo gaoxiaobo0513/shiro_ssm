@@ -25,14 +25,22 @@
             </list>
         </property>
     </bean>
-    <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="mappingJacksonHttpMessageConverter"/> <!-- JSON转换器 -->
-            </list>
-        </property>
-    </bean>
+    
+    <!-- 使注解生效 -->
+	<mvc:annotation-driven>
+		<!-- json格式的转换器 -->
+			<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="prettyPrint" value="true"></property>
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -42,7 +50,8 @@
     </bean>
 
     <mvc:view-controller path="/showLogin" view-name="login" />
-	<mvc:view-controller path="/noPermission" view-name="noPermission"/>
+	<mvc:view-controller path="/unauthorized" view-name="unauthorized"/>
+	<mvc:view-controller path="/success" view-name="success"/>
 
     <!-- 文件上传配置 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

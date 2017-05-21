@@ -17,6 +17,7 @@
 </head>
 <body>
 <div align="center">
+<form action="${pageContext.request.contextPath}/login" method="post">
 <table style="border: 0;margin: 0;padding: 0;border-collapse: collapse;">
     <tr align="center" style="background-color: blue;">
         <th colspan="2">用户登录</th>
@@ -33,6 +34,8 @@
         <td colspan="2"><input type="submit" value="登  录" />&nbsp;&nbsp;&nbsp;<button>注  册</button></td>
     </tr>
 </table>
+<span style="color: red;">${error}</span>
+</form>
 </div>
 </body>
 </html>
