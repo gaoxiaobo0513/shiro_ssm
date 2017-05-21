@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="shiro_ssm"
+  name="test"
   id="myeclipse.1495158825290"
   context-root="/shiro_ssm"
   j2ee-spec="1.7"
-  archive="shiro_ssm.war">
+  archive="test.war">
   <attributes>
     <attribute name="webrootdir" value="src/main/webapp" />
   </attributes>

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper   
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper  namespace="com.gaoxiaobo.shiro.dao.UserDao" >
+<mapper  namespace="com.gaoxiaobo.shiro.dao.UserDaoI" >
 
 	<!-- 新增用户 -->
-	<insert id="createUser" parameterType="User">
+	<insert id="createUser" parameterType="User" useGeneratedKeys="true" keyColumn="id">
 		insert into sys_users(
 			username, password, salt, locked) 
 		values
@@ -34,12 +34,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</insert>
 	
-	<parameterMap type="" id="">
-		<parameter property="" />
-	</parameterMap>
-	<select id="getByUsername" parameterType="string" resultType="User">
+	<!-- 删除用户角色 -->
+	<delete id="uncorrelationRoles">
+		delete from 
+		sys_users_roles 
+		where user_id=#{userId} and role_id in(
+		<foreach collection="roleIds" item="roleId" index="index" separator=",">
+		#{roleId}
+		</foreach>
+		)
+	</delete>
+	
+	<!-- 根据用户id查找用户 -->
+	<select id="findOne" resultType="User">
+		select id, username, password, salt, locked from sys_users where id=#{userId}
+	</select>
+	
+	<!-- 根据 username 查找用户-->
+	<select id="findByUsername" parameterType="string" resultType="User">
 		<![CDATA[
-			select * from t_user where username=#{username}					
+			select id, username, password, salt, locked  from sys_users where username=#{username}					
 		]]>
 	</select>
+	
+	<!-- 根据username查询用户角色 -->
+	<select id="findRoles" parameterType="string" resultType="string">
+		select role 
+		from
+		sys_users u, sys_roles r,sys_users_roles ur 
+		where
+		u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id
+	</select>
+	
+	<!-- 根据username查询用户权限 -->
+	<select id="findPermissions" parameterType="string" resultType="string">
+		select 
+		permission 
+		from sys_users u, sys_roles r, sys_permissions p, sys_users_roles ur, sys_roles_permissions rp 
+		where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id and r.id=rp.role_id and p.id=rp.permission_id
+	</select>
+	
 </mapper>
